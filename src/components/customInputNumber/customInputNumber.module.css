@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  text-align: center;
+  position: relative;
+  font-size: 16px;
+  border: 1px solid #D3D3D3;
+}
+
+.block {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  height: 48px;
+  width: 48px;
+}
+
+.button {
+  border: 1px solid #54D4EE;
+  margin: 8px;
+  font-size: 36px;
+}
+
+.active:hover {
+  background:rgba(255,255,255,0.4);
+  opacity: 0.5;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+}
+
+.disabled {
+  background:rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.1);
+}
