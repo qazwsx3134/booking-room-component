@@ -7,6 +7,11 @@
     "module": "es6",
     "sourceMap": true,
     "outDir": "./dist/",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./",
+    "paths": {
+      "Components/*": ["src/components/*"],
+      "Assets/*": ["src/assets/*"],
+    }
   }
 }

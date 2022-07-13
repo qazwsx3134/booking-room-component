@@ -44,6 +44,10 @@ module.exports = {
     ],
   },
   resolve: {
+    alias: {
+      Components: path.resolve(__dirname, 'src/components/'),
+      Assets: path.resolve(__dirname, 'src/assets/'),
+    },
     extensions: [".tsx", ".ts", ".js"],
   },
   optimization: {
