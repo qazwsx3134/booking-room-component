@@ -7,8 +7,8 @@ type InputProps = {
   max: number;
   step: number;
   value: number;
-  limitRest: number;
-  remainingPeople: number;
+  limitRest?: number;
+  remainingPeople?: number;
   disabled?: boolean;
   inputCallback: (value: number) => void;
 };
