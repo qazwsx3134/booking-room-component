@@ -115,7 +115,7 @@ const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
       <span
         className={`${styles.block} ${styles.button} ${
           disabled ? styles.disabled : styles.active
-        }`}
+        } ${value === min && styles.lightColor}`}
         onClick={iconOnClick("minus")}
         onMouseDown={onLongClick("minus")}
         onMouseUp={onMouseUpClear}
@@ -135,7 +135,7 @@ const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
       <span
         className={`${styles.block} ${styles.button} ${
           disabled ? styles.disabled : styles.active
-        }`}
+        }  ${value === max && styles.lightColor}`}
         onClick={iconOnClick("add")}
         onMouseDown={onLongClick("add")}
         onMouseUp={onMouseUpClear}

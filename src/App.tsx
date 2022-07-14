@@ -7,7 +7,6 @@ import DemoPage from "./components/DemoPage";
 function App() {
   return (
     <div className={styles.app}>
-      <h1>Demo Paaage</h1>
       <DemoPage />
     </div>
   );
