@@ -6,7 +6,10 @@ type InputProps = {
   min: number;
   max: number;
   step: number;
-  disabled: boolean;
+  value: number;
+  limitRest: number;
+  remainingPeople: number;
+  disabled?: boolean;
   inputCallback: (value: number) => void;
 };
 
@@ -15,15 +18,44 @@ const Input: React.FC<InputProps> = ({
   min,
   max,
   step,
+  value,
+  limitRest,
+  remainingPeople,
   disabled,
   inputCallback,
 }) => {
-  const [customInputState, setCustomInputState] = useState(0);
+  const [customInputState, setCustomInputState] = useState(value);
 
-  const handleOnChange = (str: string) => {
+  const handleInputValue = (str: string) => {
     if (str === "") return 0;
-    return parseInt(str);
+    const num = parseInt(str.split("").pop());
+    return num > max ? max : num < min ? min : num;
   };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // console.log(e.target.value);
+    // console.log(e.target.name);
+    if (remainingPeople > limitRest) {
+      if (handleInputValue(event.target.value) - customInputState > limitRest) {
+        setCustomInputState((prev) => prev + limitRest);
+        return;
+      } else {
+        setCustomInputState(handleInputValue(event.target.value));
+        return;
+      }
+    } else {
+      if (
+        handleInputValue(event.target.value) - customInputState >
+        remainingPeople
+      ) {
+        setCustomInputState((prev) => prev + remainingPeople);
+        return;
+      } else {
+        setCustomInputState(handleInputValue(event.target.value));
+        return;
+      }
+    }
+  }
 
   useEffect(() => {
     inputCallback(customInputState);
@@ -35,16 +67,14 @@ const Input: React.FC<InputProps> = ({
         min={min}
         max={max}
         name={name}
-        value={customInputState}
+        value={value}
         step={step}
-        onChange={(e) => {
-          console.log(e.target.value);
-          console.log(e.target.name);
-          setCustomInputState(handleOnChange(e.target.value));
-        }}
+        limitRest={limitRest}
+        remainingPeople={remainingPeople}
+        onChange={handleInputChange}
         onBlur={(e) => {
-          console.log(e.target.value);
-          console.log(e.target.name);
+          // console.log(e.target.value);
+          // console.log(e.target.name);
         }}
         setCustomInputState={setCustomInputState}
         disabled={disabled}
@@ -53,4 +83,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default React.memo(Input);

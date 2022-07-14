@@ -10,6 +10,8 @@ type CustomInputNumberProps = {
   value: number;
   disabled?: boolean;
   step: number;
+  limitRest: number;
+  remainingPeople: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
   setCustomInputState: React.Dispatch<React.SetStateAction<number>>;
@@ -19,7 +21,6 @@ type CustomInputNumberProps = {
  * No specify the type="number" due to the react bug
  * See the bug below
  * https://github.com/facebook/react/issues/9402
- * @param onChange It's the callback will give input's value
  */
 const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
   name,
@@ -28,20 +29,34 @@ const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
   value,
   disabled,
   step,
+  limitRest,
+  remainingPeople,
   onChange,
   onBlur,
   setCustomInputState,
 }) => {
   const timerRef = useRef<NodeJS.Timeout>();
   const intervalRef = useRef<NodeJS.Timeout>();
+  const limitRef = useRef<{limitRest:number,remainingPeople:number}>()
+  limitRef.current = {
+    limitRest,
+    remainingPeople
+  }
+  /**
+   * @param direction : Check the action is add or minus;
+   * Button onClick will call this function, and will check if the value is
+   * over the limitRest, or remainingPeople
+   */
   const iconOnClick = (direction: string) => () => {
     if (disabled) return;
     if (direction === "add") {
-      if (value + step > max) {
-        setCustomInputState(max);
+      if (value + step <= max) {
+        if (remainingPeople < step || limitRest === 0) {
+          return;
+        }
+        setCustomInputState(value + step);
         return;
       }
-      setCustomInputState(value + step);
     }
 
     if (direction === "minus") {
@@ -53,11 +68,20 @@ const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
     }
   };
 
+  /**
+   *
+   * @param direction : Check the action is add or minus;;
+   * @var timerRef : The timer will be used to delay the action, timerRef will stored that timerId;
+   * @var intervalRef : The interval will trigger add or minus the value , intervalRef will stored that timerId;
+   */
   const onLongClick = (direction: string) => () => {
     if (disabled) return;
     timerRef.current = setTimeout(() => {
       intervalRef.current = setInterval(() => {
         if (direction === "add") {
+          if (limitRef.current.remainingPeople < step || limitRef.current.limitRest === 0) {
+            return;
+          }
           setCustomInputState((prevState) => {
             if (prevState + step > max) {
               return max;
@@ -77,6 +101,9 @@ const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
     }, 300);
   };
 
+  /**
+   * Clear timeout when the user leave the input
+   */
   const onMouseUpClear = () => {
     if (disabled) return;
     clearTimeout(timerRef.current);
