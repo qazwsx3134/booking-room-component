@@ -12,6 +12,7 @@
     "paths": {
       "Components/*": ["src/components/*"],
       "Assets/*": ["src/assets/*"],
+      "Shared/*": ["src/shared/*"],
     }
   }
 }
