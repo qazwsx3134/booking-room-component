@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run build:prod && ex-test -d ./dist -t ./test/test.js",
     "webpack": "webpack",
-    "dev": "webpack serve --config webpack.development.js",
+    "dev": "webpack serve --config webpack.development.js --open",
     "start": "npm run dev",
     "build:dev": "webpack --config webpack.development.js --watch",
     "build:prod": "webpack --config webpack.production.js"

@@ -36,25 +36,6 @@ const RoomAllocation: React.FC<RoomAllocationProps> = ({
     onChange(allocationState);
   }, [allocationState]);
 
-  // TODO: Remember to change the style here
-  if (guest === room) {
-    return (
-      <div>
-        {[...Array(room).keys()].map((index) => {
-          return (
-            <Room
-              key={`${index}_room`}
-              index={index}
-              remainingPeople={guest - capacity}
-              roomOnChange={allocationOnChange}
-              disabled={true}
-            />
-          );
-        })}
-      </div>
-    );
-  }
-
   return (
     <div className={styles.container}>
       <div className={styles.section}>
@@ -74,6 +55,7 @@ const RoomAllocation: React.FC<RoomAllocationProps> = ({
             index={index}
             remainingPeople={guest - capacity}
             roomOnChange={allocationOnChange}
+            disabled={guest === room}
           />
         );
       })}

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import CustomInput from "Components/customInputNumber";
+import CustomInput from "Components/customInput";
 
 import styles from "./room.module.css";
 import { FOUR_PEOPLE_ROOM_LIMIT, ROOM_DEFAULT_NAME } from "Shared/constants/room";
