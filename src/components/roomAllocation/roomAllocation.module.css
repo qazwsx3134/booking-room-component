@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px;
+}
+
+.condition {
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.section {
+  display: flex;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.remainNotification {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #E1F3FA;
+  border-radius: 5px;
+  background-color: #F0FDFF;
+  color: #848484;
+}
