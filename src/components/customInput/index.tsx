@@ -32,10 +32,14 @@ const Input: React.FC<InputProps> = ({
     const num = parseInt(str.split("").pop());
     return num > max ? max : num < min ? min : num;
   };
-
+  /**
+   * 
+   * @param event : The event from the input
+   * handle the input value change, and specific the special case
+   */
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(e.target.value);
-    // console.log(e.target.name);
+    console.log(event.target.value);
+    console.log(event.target.name);
     if (limitRef?.current.remainingPeople > limitRef?.current.limitRest) {
       if (
         handleInputValue(event.target.value) - customInputState >
@@ -76,8 +80,8 @@ const Input: React.FC<InputProps> = ({
         limitRef={limitRef}
         onChange={handleInputChange}
         onBlur={(e) => {
-          // console.log(e.target.value);
-          // console.log(e.target.name);
+          console.log(e.target.value);
+          console.log(e.target.name);
         }}
         setCustomInputState={setCustomInputState}
         disabled={disabled}

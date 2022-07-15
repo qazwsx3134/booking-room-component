@@ -16,6 +16,13 @@ type RoomProps = {
   ) => void;
 };
 
+/**
+ * 
+ * @param index Room index 
+ * @param remainingPeople acceptable number of remaining people in the room
+ * @param disabled whether the room is disabled
+ * @param roomOnChange callback function when the room is changed
+ */
 const Room: React.FC<RoomProps> = ({
   index,
   remainingPeople,

@@ -1,6 +1,6 @@
 # Overview
 
-### How to run
+## How to run
 
 1. npm install
 2. npm run build:dev
@@ -12,39 +12,39 @@ or
 2. npm run build:prod
 3. npm run start
 
-### Environment
+## Environment
 
 1. Node v16.15.0
 
-### Library
+## Library
 
 1. react
 2. typescript
 
-### UI color
+## UI color
 
-Blue #54D4EE
-Border Gray #F0F0F0
-Light Gray #D3D3D3
-Dark Gray #A9A9A9
-Notification text #848484
-Notification section #F0FDFF
+* Blue #54D4EE
+* Border Gray #F0F0F0
+* Light Gray #D3D3D3
+* Dark Gray #A9A9A9
+* Notification text #848484
+* Notification section #F0FDFF
 
-### Support Browsers
+## Support Browsers
 
 - [v] Chrome
 - [] IE 11
 - [v] Firefox
 - [v] Edge
 
-### Icon
+## Icon
 
 Using figma to create icon
 
 - [v] plus
 - [v] minus
 
-### Props
+## Props
 
 #### RoomAllocation
 | Name        | Type                        | Default | Required? | Description                                                                                                       |
