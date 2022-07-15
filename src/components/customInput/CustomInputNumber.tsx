@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import minusSvg from "Assets/minus.svg";
 import addSvg from "Assets/add.svg";
 import styles from "./customInputNumber.module.css";
@@ -8,10 +8,12 @@ type CustomInputNumberProps = {
   min: number;
   max: number;
   value: number;
-  disabled?: boolean;
   step: number;
-  limitRest: number;
-  remainingPeople: number;
+  disabled?: boolean;
+  limitRef?: React.MutableRefObject<{
+    limitRest: number;
+    remainingPeople: number;
+  }>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
   setCustomInputState: React.Dispatch<React.SetStateAction<number>>;
@@ -29,19 +31,14 @@ const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
   value,
   disabled,
   step,
-  limitRest,
-  remainingPeople,
+  limitRef,
   onChange,
   onBlur,
   setCustomInputState,
 }) => {
   const timerRef = useRef<NodeJS.Timeout>();
   const intervalRef = useRef<NodeJS.Timeout>();
-  const limitRef = useRef<{limitRest:number,remainingPeople:number}>()
-  limitRef.current = {
-    limitRest,
-    remainingPeople
-  }
+
   /**
    * @param direction : Check the action is add or minus;
    * Button onClick will call this function, and will check if the value is
@@ -50,11 +47,17 @@ const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
   const iconOnClick = (direction: string) => () => {
     if (disabled) return;
     if (direction === "add") {
+      if (
+        limitRef?.current.remainingPeople < step ||
+        limitRef?.current.limitRest === 0
+      ) {
+        return;
+      }
       if (value + step <= max) {
-        if (remainingPeople < step || limitRest === 0) {
-          return;
-        }
         setCustomInputState(value + step);
+        return;
+      } else {
+        setCustomInputState(max);
         return;
       }
     }
@@ -65,6 +68,7 @@ const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
         return;
       }
       setCustomInputState(value - step);
+      return
     }
   };
 
@@ -79,7 +83,10 @@ const CustomInputNumber: React.FC<CustomInputNumberProps> = ({
     timerRef.current = setTimeout(() => {
       intervalRef.current = setInterval(() => {
         if (direction === "add") {
-          if (limitRef.current.remainingPeople < step || limitRef.current.limitRest === 0) {
+          if (
+            limitRef?.current.remainingPeople < step ||
+            limitRef?.current.limitRest === 0
+          ) {
             return;
           }
           setCustomInputState((prevState) => {

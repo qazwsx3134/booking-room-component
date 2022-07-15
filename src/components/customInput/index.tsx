@@ -7,8 +7,10 @@ type InputProps = {
   max: number;
   step: number;
   value: number;
-  limitRest?: number;
-  remainingPeople?: number;
+  limitRef?: React.MutableRefObject<{
+    limitRest: number;
+    remainingPeople: number;
+  }>;
   disabled?: boolean;
   inputCallback: (value: number) => void;
 };
@@ -19,8 +21,7 @@ const Input: React.FC<InputProps> = ({
   max,
   step,
   value,
-  limitRest,
-  remainingPeople,
+  limitRef,
   disabled,
   inputCallback,
 }) => {
@@ -35,9 +36,12 @@ const Input: React.FC<InputProps> = ({
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // console.log(e.target.value);
     // console.log(e.target.name);
-    if (remainingPeople > limitRest) {
-      if (handleInputValue(event.target.value) - customInputState > limitRest) {
-        setCustomInputState((prev) => prev + limitRest);
+    if (limitRef?.current.remainingPeople > limitRef?.current.limitRest) {
+      if (
+        handleInputValue(event.target.value) - customInputState >
+        limitRef?.current.limitRest
+      ) {
+        setCustomInputState((prev) => prev + limitRef?.current.limitRest);
         return;
       } else {
         setCustomInputState(handleInputValue(event.target.value));
@@ -46,16 +50,16 @@ const Input: React.FC<InputProps> = ({
     } else {
       if (
         handleInputValue(event.target.value) - customInputState >
-        remainingPeople
+        limitRef?.current.remainingPeople
       ) {
-        setCustomInputState((prev) => prev + remainingPeople);
+        setCustomInputState((prev) => prev + limitRef?.current.remainingPeople);
         return;
       } else {
         setCustomInputState(handleInputValue(event.target.value));
         return;
       }
     }
-  }
+  };
 
   useEffect(() => {
     inputCallback(customInputState);
@@ -69,8 +73,7 @@ const Input: React.FC<InputProps> = ({
         name={name}
         value={value}
         step={step}
-        limitRest={limitRest}
-        remainingPeople={remainingPeople}
+        limitRef={limitRef}
         onChange={handleInputChange}
         onBlur={(e) => {
           // console.log(e.target.value);

@@ -22,10 +22,15 @@ const Room: React.FC<RoomProps> = ({
   disabled,
   roomOnChange,
 }) => {
+  const limitRef = useRef<{ limitRest: number; remainingPeople: number }>();
+
   const [adultNumber, setAdultNumber] = useState(1);
   const [childNumber, setChildNumber] = useState(0);
 
-  const limitRest = FOUR_PEOPLE_ROOM_LIMIT - adultNumber - childNumber;
+  limitRef.current = {
+    limitRest: FOUR_PEOPLE_ROOM_LIMIT - adultNumber - childNumber,
+    remainingPeople,
+  };
 
   const adultOnChange = (value: number) => {
     setAdultNumber(value);
@@ -56,8 +61,7 @@ const Room: React.FC<RoomProps> = ({
           inputCallback={adultOnChange}
           step={1}
           disabled={disabled}
-          limitRest={limitRest}
-          remainingPeople={remainingPeople}
+          limitRef={limitRef}
         />
       </div>
       <div className={`${styles.borderBottom} ${styles.inputWrapper}`}>
@@ -72,8 +76,7 @@ const Room: React.FC<RoomProps> = ({
           inputCallback={childOnChange}
           step={1}
           disabled={disabled}
-          limitRest={limitRest}
-          remainingPeople={remainingPeople}
+          limitRef={limitRef}
         />
       </div>
     </div>
