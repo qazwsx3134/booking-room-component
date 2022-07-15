@@ -49,6 +49,6 @@ Using figma to create icon
 #### RoomAllocation
 | Name        | Type                        | Default | Required? | Description                                                                                                       |
 | ----------- | --------------------------- | ------- | --------- | ----------------------------------------------------------------------------------------------------------------- |
-| guest          | number                      |         | true     | The people will live in                                                             |
-| room | number                      |         | true     | The quantity of room that people will live in |
+| guest          | number                      |         | yes     | The people will live in                                                             |
+| room | number                      |         | yes     | The quantity of room that people will live in |
 | onChange  | function(result) |         | yes       | It's the callback will given result                                          |

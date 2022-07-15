@@ -33,7 +33,7 @@ const DemoPage: React.FC = () => {
         step={1}
       />
       <CustomInput
-        min={0}
+        min={-1}
         max={12}
         name={`${ROOM_DEFAULT_NAME}_child${1}`}
         value={controlInputTwo}
